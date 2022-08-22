@@ -236,6 +236,17 @@ class Object:
         # TODO: If multiple match, do we return all, a 'random' one, the last added, or the latest timestamp?
         return next(filter(lambda metric: metric.key == key, self._metrics), None)
 
+    def get_metric_value(self, key) -> Optional[float]:
+        """ Retrieve the value of a given metric
+
+        :param key: Key of the metric
+        :return: value associated with the metric, or None if metric does not exist
+        """
+        _metric = self.get_metric(key)
+        if _metric:
+            return _metric.value
+        return None
+
     def add_property(self, property_: Property) -> None:
         """ Method that adds a single Property value to this Object
 
@@ -270,6 +281,17 @@ class Object:
         # TODO: Optimize this?
         # TODO: If multiple match, do we return all, a 'random' one, the last added, or the latest timestamp?
         return next(filter(lambda property_: property_.key == key, self._properties), None)
+
+    def get_property_value(self, key) -> Optional[float | str]:
+        """ Retrieve the value of a given property
+
+        :param key: Key of the property
+        :return: value associated with the property, or None if property does not exist
+        """
+        _property = self.get_property(key)
+        if _property:
+            return _property.value
+        return None
 
     def add_event(self, event: Event) -> None:
         """ Method that adds a single Event to this Object
